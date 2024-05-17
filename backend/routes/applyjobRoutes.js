@@ -1,10 +1,8 @@
-const express = require('express')
-const {  applicatiofill  } = require("../controller/applyJobController")
+const express = require("express");
+const applicationfill = require("../controller/applyJobController");
 
-const router = express.Router()
+const router = express.Router();
 
-// router.route('/applyjob').post(applicatiofill) 
+router.route("/fillform").post(applicationfill);
 
-
-
-module.exports = router; 
+module.exports = router;
