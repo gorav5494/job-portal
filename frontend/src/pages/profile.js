@@ -1,44 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import * as Icon from "react-icons/cg";
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+// import * as Icon from "react-icons/cg";
+import axios from "axios";
 // import profile from '../../public/profile.png'
 
-
 const Profile = () => {
+  const [user, setUser] = useState({});
 
-const [user , setUser] = useState({});
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const usr = JSON.parse(localStorage.getItem("userdata"));
+      const res = await axios.get(`/api/users/${usr._id}`);
+      console.log(res.data);
 
-useEffect(() => {
-  const fetchUserData = async () => {
-    const usr = JSON.parse(localStorage.getItem("userdata"));
-    const res = await axios.get(`/api/users/${usr._id}`);
-    console.log(res.data);
+      setUser(res.data.data);
+      console.log(setUser);
+    };
 
-    setUser(res.data.data);
-    console.log(setUser);
-  };
+    fetchUserData();
+  }, []);
 
-  fetchUserData();
-}, []);
-
-
-
-
-
-    return (
-      <>
+  return (
+    <>
       <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-      <div className="items-center flex flex-col">
-      {/* <Icon.CgProfile /> */}
-      <img src={
-                    process.env.PUBLIC_URL + "/profile.png"
-                } height={100} width={100} className='rounded-2xl mb-5'/>
-        <div>
-          <h2 className="text-2xl font-bold text-center">{user.name}</h2>
-          <p className="text-gray-600 font-bold">{user.email}</p>
+        <div className="items-center flex flex-col">
+          {/* <Icon.CgProfile /> */}
+          <img
+            src={process.env.PUBLIC_URL + "/profile.png"}
+            height={100}
+            width={100}
+            className="rounded-2xl mb-5"
+          />
+          <div>
+            <h2 className="text-2xl font-bold text-center">{user.name}</h2>
+            <p className="text-gray-600 font-bold">{user.email}</p>
+          </div>
         </div>
-      </div>
-      {/* <div className="mt-6">
+        {/* <div className="mt-6">
         <h3 className="text-xl font-semibold mb-2">About</h3>
         <p className="text-gray-700">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.
@@ -58,9 +55,9 @@ useEffect(() => {
           </span>
         </div>
       </div> */}
-    </div>
-      </>
-    )
-}
+      </div>
+    </>
+  );
+};
 
-export default Profile
+export default Profile;

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Register() {
+function Applyjob() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
+    resume: null,
+    status: "pending",
   });
 
   const [errors, setErrors] = useState({});
@@ -21,16 +22,23 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, resume: e.target.files[0] });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post("/api/users", formData);
+      const res = await axios.post("/api/applyjobs/fillform", formData);
+
       console.log(res.data);
+
       if (res.data) {
         setSuccess(true);
         setSuccessmsg(res.data.message);
         setTimeout(() => {
-          navigate("/login");
+          navigate("/");
         }, 2000);
       }
       setTimeout(() => {
@@ -44,26 +52,30 @@ function Register() {
       setTimeout(() => {
         setError(false);
         setErrormsg({});
-      }, 3000); // Handle registration error
+      }, 3000);
     }
 
-    //
+    //validation
+
     const errors = {};
-    if (!formData.name.trim()) {
+
+    if (!formData.name) {
       errors.name = "name is required";
     }
-    if (!formData.email.trim()) {
+    if (!formData.email) {
       errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = "Email is invalid";
     }
-    if (!formData.password.trim()) {
-      errors.password = "Password is required";
+    if (!formData.about) {
+      errors.about = "about is required";
     }
-    if (formData.password !== formData.passwordConfirmation) {
-      errors.passwordConfirmation = "Passwords do not match";
+    if (!formData.resume) {
+      errors.resume = "Resume is required";
     }
-
+    if (!formData.status) {
+      errors.status = "status is required";
+    }
     if (Object.keys(errors).length === 0) {
     } else {
       setErrors(errors);
@@ -77,6 +89,7 @@ function Register() {
           <h1 className="text-2xl uppercase text-white font-semibold text-center mb-10">
             User Register
           </h1>
+
           <div className="bg-white p-8 rounded shadow-md w-96 mx-auto">
             {error && (
               <div
@@ -141,52 +154,61 @@ function Register() {
               </div>
               <div className="mb-4">
                 <label
-                  htmlFor="password"
+                  htmlFor="about"
                   className="block text-gray-700 font-bold mb-2"
                 >
-                  Password
+                  About
                 </label>
                 <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
+                  type="about"
+                  id="about"
+                  name="about"
+                  value={formData.about}
                   onChange={handleChange}
                   className={`w-full border ${
-                    errors.password ? "border-red-500" : "border-gray-300"
+                    errors.about ? "border-red-500" : "border-gray-300"
                   } p-2 rounded focus:outline-none focus:border-blue-400`}
-                  placeholder="Enter your password"
+                  placeholder="Enter your about"
                 />
-                {errors.password && (
-                  <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                {errors.about && (
+                  <p className="text-red-500 text-sm mt-1">{errors.about}</p>
                 )}
               </div>
-              {/* <div className="mb-6">
-                <label
-                  htmlFor="passwordConfirmation"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Confirm Password
+              <div className="mb-4">
+                <label htmlFor="resume" className="block font-bold mb-2">
+                  Upload CV
                 </label>
                 <input
-                  type="password"
-                  id="passwordConfirmation"
-                  name="passwordConfirmation"
-                  value={formData.passwordConfirmation}
-                  onChange={handleChange}
-                  className={`w-full border ${
-                    errors.passwordConfirmation
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } p-2 rounded focus:outline-none focus:border-blue-400`}
-                  placeholder="Confirm your password"
+                  type="file"
+                  id="resume"
+                  name="resume"
+                  onChange={handleFileChange}
+                  className={`w-full px-3 py-2 border rounded-md ${
+                    errors.resume ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
-                {errors.passwordConfirmation && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.passwordConfirmation}
-                  </p>
+                {errors.resume && (
+                  <p className="text-red-500 mt-1">{errors.resume}</p>
                 )}
-              </div> */}
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="status" className="block font-bold mb-2">
+                  Status
+                </label>
+                <select
+                  id="status"
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border rounded-md border-gray-300"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="accepted">Accepted</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+
               <button
                 type="submit"
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -200,5 +222,4 @@ function Register() {
     </>
   );
 }
-
-export default Register;
+export default Applyjob;
