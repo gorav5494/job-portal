@@ -2,7 +2,7 @@ const AppliedJob = require("../Models/applyJobs");
 const asynchandler = require("express-async-handler");
 
 const applicationfill = asynchandler(async (req, res) => {
-  const { user, job, name, email, about, resume, status } = req.body;
+  const { user, job, name, email, about, resume } = req.body;
 
   const applicationfill = await AppliedJob.create({
     user,
@@ -11,7 +11,6 @@ const applicationfill = asynchandler(async (req, res) => {
     email,
     about,
     resume,
-    status,
   });
   console.log("dkf", req.body);
   if (applicationfill) {

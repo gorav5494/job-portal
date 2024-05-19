@@ -6,6 +6,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setuser] = useState({});
   const navigate = useNavigate();
+  
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -21,8 +22,12 @@ function Navbar() {
 
   return (
     <>
-      <header className="bg-black py-5">
-        <nav className="container mx-auto">
+      <header className="bg-black py-8">
+        <nav className="container mx-auto flex justify-between">
+          <div className="text-white">
+          <Link to={"/"} className="text-white">
+            <h1>JOB PORTAL</h1></Link>
+          </div>
           <ul className="flex items-center justify-end gap-5">
             <li>
               <Link to={"/"} className="text-white">
@@ -30,13 +35,11 @@ function Navbar() {
               </Link>
             </li>
 
-            {!user && (
-              <li>
-                <Link to={"/Login"} className="text-white">
-                  Login
-                </Link>
-              </li>
-            )}
+            <li>
+              <Link to={"/viewjobs"} className="text-white">
+                View Jobs
+              </Link>
+            </li>
             {!user && (
               <li>
                 <Link to={"/register"} className="text-white">
@@ -44,7 +47,19 @@ function Navbar() {
                 </Link>
               </li>
             )}
-
+            {!user && (
+              <li className="">
+                <Link to={"/Login"} className="text-white">
+                  Login <img
+                    src={process.env.PUBLIC_URL + "/profile.png"}
+                    height={20}
+                    width={20}
+                    className="rounded-2xl  inline-block align-middle"
+                />
+                </Link>
+                
+              </li>
+            )}
             {user && (
               <li>
                 <Link to={"/addjob"} className="text-white">
@@ -63,7 +78,7 @@ function Navbar() {
                   </button>
 
                   {isOpen && (
-                    <div className="origin-top-right absolute  mt-2  rounded-md shadow-lg p-3 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="origin-top-right absolute z-10 mt-2  rounded-md shadow-lg p-3 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="dropdown-menu text-white font-semibold block  uppercase">
                         <Link
                           to={"/profile"}

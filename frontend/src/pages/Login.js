@@ -19,6 +19,7 @@ const navigate = useNavigate();
   const [errormsg, setErrormsg] = useState({message:"",stack:""});
   const [successmsg, setSuccessmsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
   const handleChange = (e) => {
@@ -31,12 +32,15 @@ const navigate = useNavigate();
     try {
       const res = await axios.post('/api/users/login', formData);
       console.log(res.data); 
+
       
+
       if(res.data){
         setSuccess(true);
         setSuccessmsg(res.data.message);
-        
+        setIsLoggedIn(true);
         localStorage.setItem("userdata", JSON.stringify(res.data.data));
+        
       }
       setTimeout(()=>{
         setSuccessmsg(""); 
@@ -138,11 +142,20 @@ const navigate = useNavigate();
                 )}
               </div>
               <button
-                type="submit"
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              >
-                Login
-              </button>
+                  type="submit"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Login
+                </button>
+              {/* { isLoggedIn && (<button
+                  type="submit"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Login
+                </button>
+                )
+              } */}
+                
             </form>
           </div>
           <div className="pt-10 text-center text-white ">

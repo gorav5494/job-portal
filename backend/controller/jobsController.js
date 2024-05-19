@@ -61,4 +61,24 @@ const Getjob = asynchandler(async (req, res) => {
   }
 });
 
-module.exports = { job, Getjob };
+//get all listing page 
+
+const Getall = asynchandler(async (req, res) => {
+  
+  const job = await Job.findById(req.params._id);
+
+  //   console.log(job);
+
+  if (job) {
+    res.status(200).json({
+      message: "job Found...",
+      data: job,
+    });
+  } else {
+    res.status(400).json({
+      message: "job Is not Found",
+    });
+  }
+});
+
+module.exports = { job, Getjob, Getall};
