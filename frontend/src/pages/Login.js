@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
-
+import axios from "axios";
 
 const Login = () => {
-
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -14,56 +12,59 @@ const navigate = useNavigate();
   });
 
   // console.log("this is",formData);
+  const [usertype, setUsertype] = useState("");
+
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
-  const [errormsg, setErrormsg] = useState({message:"",stack:""});
+  const [errormsg, setErrormsg] = useState({ message: "", stack: "" });
   const [successmsg, setSuccessmsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  useEffect(() => {
+    const usertype = localStorage.getItem("usertype");
+    console.log("dfdf", usertype);
+    if (usertype === "recruitment") {
+      navigate("/addjob");
+    } else {
+    }
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setLoading(true);
     try {
-      const res = await axios.post('/api/users/login', formData);
-      console.log(res.data); 
+      const res = await axios.post("/api/users/login", formData);
+      console.log(res.data);
 
-      
-
-      if(res.data){
+      if (res.data) {
         setSuccess(true);
         setSuccessmsg(res.data.message);
-        setIsLoggedIn(true);
+        // setIsLoggedIn(true);
         localStorage.setItem("userdata", JSON.stringify(res.data.data));
-        
+        setTimeout(() => {
+          setSuccessmsg("");
+          setSuccess(false);
+          navigate("/");
+        }, 2000);
       }
-      setTimeout(()=>{
-        setSuccessmsg(""); 
-        setSuccess(false);
-        navigate('/')            
-      },2000)
-
     } catch (err) {
       console.log(err);
       setError(true);
-      
+
       setErrormsg(err.response.data);
 
-      console.error(err.response.data); 
-      setTimeout(()=>{
-        setError(false); 
-        setErrormsg({})  
+      console.error(err.response.data);
+      setTimeout(() => {
+        setError(false);
+        setErrormsg({});
 
-        if(err.response.status === 400){
-          navigate('/register'); 
+        if (err.response.status === 400) {
+          navigate("/register");
         }
-
-      },3000)
+      }, 3000);
 
       // setLoading(false);
     }
@@ -77,7 +78,6 @@ const navigate = useNavigate();
     }
 
     if (Object.keys(errors).length === 0) {
-
     } else {
       setErrors(errors);
     }
@@ -91,11 +91,25 @@ const navigate = useNavigate();
             User Login
           </h1>
           <div className="bg-white p-8 rounded shadow-md w-96 mx-auto">
-          {error && <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert"><p className="font-bold">{errormsg.message}</p></div>}
+            {error && (
+              <div
+                className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4"
+                role="alert"
+              >
+                <p className="font-bold">{errormsg.message}</p>
+              </div>
+            )}
 
-          {success && <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert"><p className="font-bold">{successmsg}</p></div>}
+            {success && (
+              <div
+                className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
+                role="alert"
+              >
+                <p className="font-bold">{successmsg}</p>
+              </div>
+            )}
 
-          {/* {loading && <Loading />} */}
+            {/* {loading && <Loading />} */}
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
@@ -142,11 +156,11 @@ const navigate = useNavigate();
                 )}
               </div>
               <button
-                  type="submit"
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                  Login
-                </button>
+                type="submit"
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Login
+              </button>
               {/* { isLoggedIn && (<button
                   type="submit"
                   className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -155,16 +169,18 @@ const navigate = useNavigate();
                 </button>
                 )
               } */}
-                
             </form>
           </div>
           <div className="pt-10 text-center text-white ">
-            New User ? <Link to='/register' className="hover:text-black">Register User</Link>
+            New User ?{" "}
+            <Link to="/register" className="hover:text-black">
+              Register User
+            </Link>
           </div>
         </div>
       </section>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

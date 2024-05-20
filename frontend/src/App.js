@@ -10,11 +10,13 @@ import Jobdetails from "./pages/Jobs/jobdetails";
 import Applyjob from "./pages/Jobs/applyjob";
 import Footer from "./component/Footer";
 import Viewjoblisting from "./pages/Jobs/viewjoblisting";
+import JobPortalPopup from "./pages/shared/popup";
 
 const App = () => {
   return (
     <div>
       <Router>
+        <JobPortalPopup />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -24,9 +26,9 @@ const App = () => {
           <Route path="/addjob" element={<JobPostingForm />} />
           <Route path="/jobdetails" element={<Jobdetails />} />
           <Route path="/applyjob" element={<Applyjob />} />
-          <Route path="//viewjobs" element={<Viewjoblisting/>} />
+          <Route path="//viewjobs" element={<Viewjoblisting />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </Router>
     </div>
   );
