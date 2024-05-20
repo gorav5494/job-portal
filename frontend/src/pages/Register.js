@@ -161,32 +161,6 @@ function Register() {
                   <p className="text-red-500 text-sm mt-1">{errors.password}</p>
                 )}
               </div>
-              {/* <div className="mb-6">
-                <label
-                  htmlFor="passwordConfirmation"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="passwordConfirmation"
-                  name="passwordConfirmation"
-                  value={formData.passwordConfirmation}
-                  onChange={handleChange}
-                  className={`w-full border ${
-                    errors.passwordConfirmation
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } p-2 rounded focus:outline-none focus:border-blue-400`}
-                  placeholder="Confirm your password"
-                />
-                {errors.passwordConfirmation && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.passwordConfirmation}
-                  </p>
-                )}
-              </div> */}
               <button
                 type="submit"
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
