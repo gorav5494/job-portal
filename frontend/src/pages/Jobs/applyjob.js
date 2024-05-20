@@ -9,7 +9,7 @@ function Applyjob() {
     name: "",
     email: "",
     resume: null,
-    status: "pending",
+    // status: "pending",
   });
 
   const [errors, setErrors] = useState({});
@@ -73,9 +73,9 @@ function Applyjob() {
     if (!formData.resume) {
       errors.resume = "Resume is required";
     }
-    if (!formData.status) {
-      errors.status = "status is required";
-    }
+    // if (!formData.status) {
+    //   errors.status = "status is required";
+    // }
     if (Object.keys(errors).length === 0) {
     } else {
       setErrors(errors);
@@ -192,23 +192,7 @@ function Applyjob() {
                 )}
               </div>
 
-              <div className="mb-4">
-                <label htmlFor="status" className="block font-bold mb-2">
-                  Status
-                </label>
-                <select
-                  id="status"
-                  name="status"
-                  value={formData.status}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded-md border-gray-300"
-                >
-                  <option value="pending">Pending</option>
-                  <option value="accepted">Accepted</option>
-                  <option value="rejected">Rejected</option>
-                </select>
-              </div>
-
+              
               <button
                 type="submit"
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
