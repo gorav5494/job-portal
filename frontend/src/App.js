@@ -11,6 +11,7 @@ import Applyjob from "./pages/Jobs/applyjob";
 import Footer from "./component/Footer";
 import Viewjoblisting from "./pages/Jobs/viewjoblisting";
 import JobPortalPopup from "./pages/shared/popup";
+import ForgetPassoword from "./pages/shared/forgotPassword";
 
 const App = () => {
   return (
@@ -26,7 +27,8 @@ const App = () => {
           <Route path="/addjob" element={<JobPostingForm />} />
           <Route path="/jobdetails" element={<Jobdetails />} />
           <Route path="/applyjob" element={<Applyjob />} />
-          <Route path="//viewjobs" element={<Viewjoblisting />} />
+          <Route path="/viewjobs" element={<Viewjoblisting />} />
+          <Route path="/forgotpassword" element={<ForgetPassoword />} />
         </Routes>
         <Footer />
       </Router>

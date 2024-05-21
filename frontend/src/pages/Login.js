@@ -12,7 +12,7 @@ const Login = () => {
   });
 
   // console.log("this is",formData);
-  const [usertype, setUsertype] = useState("");
+  // const [usertype, setUsertype] = useState("");
 
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
@@ -27,10 +27,10 @@ const Login = () => {
   useEffect(() => {
     const usertype = localStorage.getItem("usertype");
     console.log("dfdf", usertype);
-    if (usertype === "recruitment") {
-      navigate("/addjob");
-    } else {
-    }
+
+    // if (usertype === recruitment) {
+
+    // }
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,8 +38,11 @@ const Login = () => {
     try {
       const res = await axios.post("/api/users/login", formData);
       console.log(res.data);
-
-      if (res.data) {
+      const recruitment = "recruitment";
+      if (this.usertype === recruitment) {
+        console.log("ds", this.usertype);
+        navigate("/addjob");
+      } else if (res.data) {
         setSuccess(true);
         setSuccessmsg(res.data.message);
         // setIsLoggedIn(true);
@@ -171,11 +174,18 @@ const Login = () => {
               } */}
             </form>
           </div>
-          <div className="pt-10 text-center text-white ">
-            New User ?{" "}
-            <Link to="/register" className="hover:text-black">
-              Register User
-            </Link>
+          <div className="flex pt-10  justify-center">
+            <div className="px-5 text-center text-lg text-white ">
+              New User ?{" "}
+              <Link to="/register" className="hover:text-black ">
+                Register User
+              </Link>
+            </div>
+            <div className="px-2 border-l text-center text-white ">
+              <Link to="/forgotpassword" className="hover:text-black text-lg">
+                Forget Passoword
+              </Link>
+            </div>
           </div>
         </div>
       </section>
