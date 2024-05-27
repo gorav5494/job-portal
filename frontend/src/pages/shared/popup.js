@@ -25,6 +25,10 @@ const JobPortalPopup = () => {
     setError("");
   };
 
+  const closepopup = () => {
+    setShowPopup(false);
+  };
+
   const handleSubmit = () => {
     if (!option) {
       setError("Please select an option");
@@ -33,8 +37,10 @@ const JobPortalPopup = () => {
     navigate("/login");
     console.log(`Selected option: ${option}`);
     setShowPopup(false);
+    // const selectedOption = option;
     localStorage.setItem("usertype", JSON.stringify(option));
     // localStorage.setItem("isLoggedIn", "true");
+    // console.log("Selected option:", selectedOption);
   };
 
   if (!showPopup || isLoggedIn) {
@@ -42,8 +48,35 @@ const JobPortalPopup = () => {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-8 max-w-md">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+      <div className="bg-white rounded-lg p-8 max-w-md relative">
+        <div
+          className="h-[20px] w-[20px] absolute top-3 right-3 cursor-pointer"
+          onClick={closepopup}
+        >
+          <svg
+            viewPort="0 0 12 12"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="1"
+              y1="11"
+              x2="11"
+              y2="1"
+              stroke="black"
+              stroke-width="2"
+            />
+            <line
+              x1="1"
+              y1="1"
+              x2="11"
+              y2="11"
+              stroke="black"
+              stroke-width="2"
+            />
+          </svg>
+        </div>
         <h2 className="text-2xl font-bold mb-4">Welcome to the Job Portal</h2>
         <p className="mb-4">Please select an option:</p>
         <div className="mb-4">

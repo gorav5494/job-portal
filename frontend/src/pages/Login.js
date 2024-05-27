@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -10,46 +10,40 @@ const Login = () => {
     email: "",
     password: "",
   });
-
-  // console.log("this is",formData);
-  // const [usertype, setUsertype] = useState("");
-
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
   const [errormsg, setErrormsg] = useState({ message: "", stack: "" });
   const [successmsg, setSuccessmsg] = useState("");
   const [success, setSuccess] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [usertype, setUsertype] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-    const usertype = localStorage.getItem("usertype");
-    console.log("dfdf", usertype);
-
-    // if (usertype === recruitment) {
-
-    // }
+    setUsertype(JSON.stringify(localStorage.getItem("usertype")));
+    console.log("dsfs", setUsertype);
+    if (usertype) {
+    }
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setLoading(true);
+
     try {
       const res = await axios.post("/api/users/login", formData);
+      // setIsLoggedIn(true);
+      localStorage.setItem("userdata", JSON.stringify(res.data.data));
+
       console.log(res.data);
-      const recruitment = "recruitment";
-      if (this.usertype === recruitment) {
-        console.log("ds", this.usertype);
-        navigate("/addjob");
-      } else if (res.data) {
+
+      if (res.data) {
         setSuccess(true);
         setSuccessmsg(res.data.message);
-        // setIsLoggedIn(true);
-        localStorage.setItem("userdata", JSON.stringify(res.data.data));
         setTimeout(() => {
           setSuccessmsg("");
           setSuccess(false);
+          // const userType = localStorage.getItem("usertype");
+
           navigate("/");
         }, 2000);
       }
@@ -68,8 +62,6 @@ const Login = () => {
           navigate("/register");
         }
       }, 3000);
-
-      // setLoading(false);
     }
 
     const errors = {};
