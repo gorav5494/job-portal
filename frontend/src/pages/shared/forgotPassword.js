@@ -2,25 +2,45 @@ import React from "react";
 import { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 const ForgetPassoword = () => {
+  // const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("/api/users/forgot-password", {
-        email,
-      });
 
-      console.log("sds", email);
-      setSuccess(response.data.message);
-      setError("");
+    try {
+      const res = await axios.post("/api/users/forgetPassword", email);
+      console.log("fdfd", res.data);
+      // setIsLoggedIn(true);
+
+      localStorage.setItem("userdata", JSON.stringify(res.data.data));
+
+      console.log(res.data);
+      setSuccess(true);
+      // if (res.data) {
+      //   setSuccess(true);
+      //   // setSuccessmsg(res.data.message);
+      //   setTimeout(() => {
+      //     // setSuccessmsg("");
+      //     setSuccess(false);
+      //     // const userType = localStorage.getItem("usertype");
+
+      //     navigate("/login");
+      //   }, 2000);
+      // }
     } catch (err) {
-      setError(err.response.data.message);
-      setSuccess("");
+      console.log(err);
+      setError(true);
+
+      console.error(err.response.data);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
     }
   };
 
