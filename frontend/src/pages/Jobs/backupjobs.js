@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const JobPostingForm = () => {
   const navigate = useNavigate();
+  // const [formData, setFormData] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -16,6 +17,19 @@ const JobPostingForm = () => {
     job_vacancy: "",
     job_deadline: "",
   });
+
+  // user: "6645d6d1eb467541878da6dss1",
+  // title: "Software Engineer",
+  // description:
+  //   "We are seeking a talented Software Engineer to join our team.",
+  // salary: 80000,
+  // company: "Acme Inc.",
+  // email: "careers@acme.com",
+  // job_category: "Engineering",
+  // job_type: "Full-time",
+  // job_experience: "Mid-level",
+  // job_vacancy: 2,
+  // job_deadline: "2024-06-30",
 
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState({});
@@ -37,6 +51,27 @@ const JobPostingForm = () => {
     });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const validationErrors = validateForm(formData);
+  //   if (Object.keys(validationErrors).length === 0) {
+  //     console.log(formData);
+
+  //     formData.user = user?._id;
+  //     console.log("dsd", formData);
+  //     const res = await axios.post("/api/jobs/addjob", formData);
+
+  //     console.log("data", res.data.data);
+
+  //     localStorage.setItem("jobdetail", JSON.stringify(res.data.data));
+
+  //     setTimeout(() => {
+  //       navigate("/jobdetails");
+  //     }, 2000);
+  //   } else {
+  //     setErrors(validationErrors);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm(formData);
@@ -72,7 +107,7 @@ const JobPostingForm = () => {
       errors.description = "Description is required";
     }
 
-    if (!data.salary || data.salary <= 0) {
+    if (!data.salary || data.salary < 0) {
       errors.salary = "Salary must be a positive number";
     }
 
@@ -108,7 +143,7 @@ const JobPostingForm = () => {
   };
 
   return (
-    <div className="py-10 border">
+    <div className="py-10 border ">
       <div className="border-b py-10 mb-10">
         <h1 className="text-center text-2xl font-bold">Add Job's Details</h1>
       </div>
@@ -190,7 +225,7 @@ const JobPostingForm = () => {
           {errors.email && <p className="text-red-500">{errors.email}</p>}
         </div>
 
-        {/* <div className="mb-4">
+        <div className="mb-4">
           <label htmlFor="job_category" className="block font-bold mb-2">
             Job Category
           </label>
@@ -205,19 +240,33 @@ const JobPostingForm = () => {
           {errors.job_category && (
             <p className="text-red-500">{errors.job_category}</p>
           )}
+        </div>
+
+        {/* <div className="mb-4">
+          <label htmlFor="job_type" className="block font-bold mb-2">
+            Job Type
+          </label>
+          <input
+            type="text"
+            id="job_type"
+            name="job_type"
+            value={formData.job_type}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded"
+          />
+          {errors.job_type && <p className="text-red-500">{errors.job_type}</p>}
         </div> */}
         <div className="mb-4">
-          <label htmlFor="job_category" className="block font-bold mb-2">
-            Job Category
+          <label htmlFor="status" className="block font-bold mb-2">
+            Job Type
           </label>
           <select
-            id="job_category"
-            name="job_category"
-            value={formData.job_category}
+            id="status"
+            name="status"
+            value={formData.job_type}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-md border-gray-300"
           >
-            <option value="">Select Job Category</option>
             <option value="IT and Development job">
               IT and Development job
             </option>
@@ -226,30 +275,6 @@ const JobPostingForm = () => {
             <option value="Customer service Job ">Customer service Job</option>
             <option value="Human Resources(HR) ">Human Resources(HR)</option>
           </select>
-          {errors.job_category && (
-            <p className="text-red-500">{errors.job_category}</p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="job_type" className="block font-bold mb-2">
-            Job Type
-          </label>
-          <select
-            id="job_type"
-            name="job_type"
-            value={formData.job_type}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-md border-gray-300"
-          >
-            <option value="">Select Job Type</option>
-            <option value="Full-time">Full-time</option>
-            <option value="Part-time">Part-time</option>
-            <option value="Contract">Contract</option>
-            <option value="Temporary">Temporary</option>
-            <option value="Internship">Internship</option>
-          </select>
-          {errors.job_type && <p className="text-red-500">{errors.job_type}</p>}
         </div>
 
         <div className="mb-4">

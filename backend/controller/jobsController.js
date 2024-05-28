@@ -61,13 +61,12 @@ const Getjob = asynchandler(async (req, res) => {
   }
 });
 
-//get all listing page 
+//get all listing page
 
 const Getall = asynchandler(async (req, res) => {
-  
   const job = await Job.findById(req.params._id);
 
-  //   console.log(job);
+  console.log(job);
 
   if (job) {
     res.status(200).json({
@@ -81,4 +80,4 @@ const Getall = asynchandler(async (req, res) => {
   }
 });
 
-module.exports = { job, Getjob, Getall};
+module.exports = { job, Getjob, Getall };

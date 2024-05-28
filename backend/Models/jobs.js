@@ -30,6 +30,16 @@ const JobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    // job_type: {
+    //   type: String,
+    //   enum: [
+    //     "IT and Development job",
+    //     "Accounting Job",
+    //     "Administrative Job",
+    //     "Customer service Job",
+    //     "Human Resources(HR)",
+    //   ],
+    // },
     job_type: {
       type: String,
       required: true,
