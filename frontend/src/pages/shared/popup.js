@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios"
 
 const JobPortalPopup = () => {
   const navigate = useNavigate();
@@ -17,7 +16,6 @@ const JobPortalPopup = () => {
     } else {
       setShowPopup(true);
     }
-    // console.log(token);
   }, []);
 
   const handleOptionChange = (e) => {
@@ -34,13 +32,12 @@ const JobPortalPopup = () => {
       setError("Please select an option");
       return;
     }
+    localStorage.setItem("usertype", option);
     navigate("/login");
     console.log(`Selected option: ${option}`);
+
     setShowPopup(false);
-    // const selectedOption = option;
-    localStorage.setItem("usertype", JSON.stringify(option));
-    // localStorage.setItem("isLoggedIn", "true");
-    // console.log("Selected option:", selectedOption);
+    // localStorage.setItem("usertype", JSON.stringify(option));
   };
 
   if (!showPopup || isLoggedIn) {
@@ -48,14 +45,14 @@ const JobPortalPopup = () => {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-white rounded-lg p-8 max-w-md relative">
         <div
           className="h-[20px] w-[20px] absolute top-3 right-3 cursor-pointer"
           onClick={closepopup}
         >
           <svg
-            viewPort="0 0 12 12"
+            viewBox="0 0 12 12"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -65,7 +62,7 @@ const JobPortalPopup = () => {
               x2="11"
               y2="1"
               stroke="black"
-              stroke-width="2"
+              strokeWidth="2"
             />
             <line
               x1="1"
@@ -73,7 +70,7 @@ const JobPortalPopup = () => {
               x2="11"
               y2="11"
               stroke="black"
-              stroke-width="2"
+              strokeWidth="2"
             />
           </svg>
         </div>

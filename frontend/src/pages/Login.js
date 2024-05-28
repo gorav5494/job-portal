@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -15,17 +15,12 @@ const Login = () => {
   const [errormsg, setErrormsg] = useState({ message: "", stack: "" });
   const [successmsg, setSuccessmsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const [usertype, setUsertype] = useState("");
+  // const [usertype, setUsertype] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    setUsertype(JSON.stringify(localStorage.getItem("usertype")));
-    console.log("dsfs", setUsertype);
-    if (usertype) {
-    }
-  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -42,9 +37,13 @@ const Login = () => {
         setTimeout(() => {
           setSuccessmsg("");
           setSuccess(false);
-          // const userType = localStorage.getItem("usertype");
-
-          navigate("/");
+          const usertype = localStorage.getItem("usertype");
+          if (usertype === "recruitment") {
+            navigate("/addjob");
+          } else if (usertype === "applyJob") {
+            navigate("/");
+          }
+          // navigate("/");
         }, 2000);
       }
     } catch (err) {

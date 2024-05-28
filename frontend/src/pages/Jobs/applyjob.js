@@ -87,7 +87,7 @@ function Applyjob() {
       <section className="py-10 bg-gradient-to-r from-cyan-500 to-blue-500 h-screen">
         <div className="container mx-auto">
           <h1 className="text-2xl uppercase text-white font-semibold text-center mb-10">
-            User Register
+            Apply Job
           </h1>
 
           <div className="bg-white p-8 rounded shadow-md w-96 mx-auto">
@@ -192,7 +192,6 @@ function Applyjob() {
                 )}
               </div>
 
-              
               <button
                 type="submit"
                 className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
