@@ -5,6 +5,7 @@ import * as Icon from "react-icons/cg";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setuser] = useState({});
+  // const [usertype, setUsertype] = useState({});
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
@@ -18,6 +19,8 @@ function Navbar() {
   };
   useEffect(() => {
     setuser(localStorage.getItem("userdata"));
+    // setUsertype(localStorage.getItem("usertype"));
+    // console.log("hds", setUsertype);
   });
 
   return (

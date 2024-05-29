@@ -48,7 +48,7 @@ const JobPortalPopup = () => {
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-white rounded-lg p-8 max-w-md relative">
         <div
-          className="h-[20px] w-[20px] absolute top-3 right-3 cursor-pointer"
+          className="h-[15px] w-[15px] absolute top-3 right-3 cursor-pointer"
           onClick={closepopup}
         >
           <svg

@@ -12,11 +12,11 @@ function Jobdetails() {
 
   useEffect(() => {
     const fetchJobData = async () => {
-      const jobs = JSON.parse(localStorage.getItem("jobdetail"));
-      console.log("sd", jobs);
-      const res = await axios.get(`/api/jobs/${jobs._id}`);
+      // const jobs = JSON.parse(localStorage.getItem("jobdetail"));
 
-      console.log(res.data);
+      const res = await axios.get("/api/jobs/");
+      // console.log("sd", jobs);
+      console.log("dataofjb", res.data.data);
 
       setJob(res.data.data);
       console.log(setJob);
@@ -30,7 +30,7 @@ function Jobdetails() {
       <h1 className="font-bold text-3xl text-center my-4">Job - Details</h1>
       {/*  */}
 
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      {/* <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow-xl shadow-red-200 overflow-hidden sm:rounded-lg">
           <div className="px-4 py-5 sm:px-6 bg-slate-200">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
@@ -47,6 +47,7 @@ function Jobdetails() {
                   {job.title}
                 </dd>
               </div>
+
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   Description
@@ -55,12 +56,14 @@ function Jobdetails() {
                   {job.description}
                 </dd>
               </div>
+
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Salary</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                   {job.salary}
                 </dd>
               </div>
+
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   Job Category
@@ -69,12 +72,14 @@ function Jobdetails() {
                   {job.job_category}
                 </dd>
               </div>
+
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Job Type</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                   {job.job_type}
                 </dd>
               </div>
+
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   Required Work Experinece
@@ -83,6 +88,7 @@ function Jobdetails() {
                   {job.job_experience}
                 </dd>
               </div>
+
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   Job Vacancy
@@ -91,6 +97,7 @@ function Jobdetails() {
                   {job.job_vacancy}
                 </dd>
               </div>
+
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   Job apply Deadline
@@ -102,7 +109,7 @@ function Jobdetails() {
             </dl>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="text-center pb-10">
         <button
           onClick={applyJob}

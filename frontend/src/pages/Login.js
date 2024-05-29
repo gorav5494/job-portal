@@ -42,8 +42,9 @@ const Login = () => {
             navigate("/addjob");
           } else if (usertype === "applyJob") {
             navigate("/");
+          } else {
+            navigate("/");
           }
-          // navigate("/");
         }, 2000);
       }
     } catch (err) {
