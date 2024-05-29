@@ -50,7 +50,7 @@ const JobPostingForm = () => {
         localStorage.setItem("jobdetail", JSON.stringify(res.data.data));
 
         setTimeout(() => {
-          navigate("/jobdetails");
+          navigate("/viewjobs");
         }, 2000);
       } catch (error) {
         console.error("Error submitting form:", error);

@@ -46,8 +46,8 @@ const job = asynchandler(async (req, res) => {
 
 const Getjob = asynchandler(async (req, res) => {
   const job = await Job.findById(req.params._id);
-
-  //   console.log(job);
+  const jobdata = res.json();
+  console.log("dss", jobdata);
 
   if (job) {
     res.status(200).json({
@@ -63,21 +63,26 @@ const Getjob = asynchandler(async (req, res) => {
 
 //get all listing page
 
-const Getall = asynchandler(async (req, res) => {
-  const job = await Job.findById(req.params._id);
-
-  console.log(job);
-
-  if (job) {
-    res.status(200).json({
-      message: "job Found...",
-      data: job,
-    });
-  } else {
-    res.status(400).json({
-      message: "job Is not Found",
-    });
+const GetAllJobs = asynchandler(async (req, res) => {
+  try {
+    const jobs = await Job.find();
+    if (jobs.length > 0) {
+      res.status(200).json({ message: "Jobs found", data: jobs });
+    } else {
+      res.status(404).json({ message: "No jobs found" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
-module.exports = { job, Getjob, Getall };
+/* router.get('/', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}); */
+
+module.exports = { job, Getjob, GetAllJobs };
