@@ -11,7 +11,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       const usr = JSON.parse(localStorage.getItem("userdata"));
       const res = await axios.get(`/api/users/${usr._id}`);
-      console.log(res.data);
+      console.log("userr", res.data.data);
 
       setUser(res.data.data);
       console.log(setUser);

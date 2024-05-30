@@ -73,9 +73,7 @@ function Applyjob() {
     if (!formData.resume) {
       errors.resume = "Resume is required";
     }
-    // if (!formData.status) {
-    //   errors.status = "status is required";
-    // }
+
     if (Object.keys(errors).length === 0) {
     } else {
       setErrors(errors);

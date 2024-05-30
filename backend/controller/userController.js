@@ -164,6 +164,16 @@ const GetUser = asynchandler(async (req, res) => {
     });
   }
 });
+//
+
+const GetAllUser = asynchandler(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
 
 module.exports = {
   registerUser,
@@ -171,4 +181,5 @@ module.exports = {
   GetUser,
   ForgetPassword,
   ResetPassword,
+  GetAllUser,
 };

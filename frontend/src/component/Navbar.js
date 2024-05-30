@@ -5,7 +5,7 @@ import * as Icon from "react-icons/cg";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setuser] = useState({});
-  // const [usertype, setUsertype] = useState({});
+  const [usertype, setUsertype] = useState({});
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
@@ -19,8 +19,8 @@ function Navbar() {
   };
   useEffect(() => {
     setuser(localStorage.getItem("userdata"));
-    // setUsertype(localStorage.getItem("usertype"));
-    // console.log("hds", setUsertype);
+    setUsertype(localStorage.getItem("usertype"));
+    console.log("hds", setUsertype);
   });
 
   return (
@@ -69,7 +69,7 @@ function Navbar() {
                 </Link>
               </li>
             )}
-            {user && (
+            {user && usertype === "recruitment" && (
               <li>
                 <Link to={"/addjob"} className="text-white">
                   AddJob
