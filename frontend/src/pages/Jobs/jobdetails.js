@@ -1,115 +1,120 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
 
 function Jobdetails() {
-  const [job, setJob] = useState({});
+  const { id } = useParams();
+  const [job, setJob] = useState(null);
+
   const navigate = useNavigate();
   const applyJob = () => {
     navigate("/applyjob");
   };
 
   useEffect(() => {
-    const fetchJobData = async () => {
-      // const jobs = JSON.parse(localStorage.getItem("jobdetail"));
-
-      const res = await axios.get("/api/jobs/");
-      // console.log("sd", jobs);
-      console.log("dataofjb", res.data.data);
-
-      setJob(res.data.data);
-      console.log(setJob);
+    const fetchJobDetails = async () => {
+      try {
+        const res = await axios.get(`/api/jobs/${id}`);
+        // console.log("sfdh", res.data.data);
+        setJob(res.data.data);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
     };
-
-    fetchJobData();
-  }, []);
+    fetchJobDetails();
+  }, [id]);
 
   return (
     <>
       <h1 className="font-bold text-3xl text-center my-4">Job - Details</h1>
       {/*  */}
+      {job ? (
+        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div className="bg-white shadow-xl shadow-red-200 overflow-hidden sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6 bg-slate-200">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Company : - {job.company}
+              </h3>
+            </div>
+            <div className="border-t border-gray-200">
+              <dl>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Job profile
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {job.title}
+                  </dd>
+                </div>
 
-      {/* <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow-xl shadow-red-200 overflow-hidden sm:rounded-lg">
-          <div className="px-4 py-5 sm:px-6 bg-slate-200">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
-              Company : - {job.company}
-            </h3>
-          </div>
-          <div className="border-t border-gray-200">
-            <dl>
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  Job profile
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {job.title}
-                </dd>
-              </div>
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Description
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {job.description}
+                  </dd>
+                </div>
 
-              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  Description
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {job.description}
-                </dd>
-              </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">Salary</dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {job.salary}
+                  </dd>
+                </div>
 
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">Salary</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {job.salary}
-                </dd>
-              </div>
+                <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Job Category
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {job.job_category}
+                  </dd>
+                </div>
 
-              <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  Job Category
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {job.job_category}
-                </dd>
-              </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Job Type
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {job.job_type}
+                  </dd>
+                </div>
 
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">Job Type</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {job.job_type}
-                </dd>
-              </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Required Work Experinece
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {job.job_experience}
+                  </dd>
+                </div>
 
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  Required Work Experinece
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {job.job_experience}
-                </dd>
-              </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Job Vacancy
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {job.job_vacancy}
+                  </dd>
+                </div>
 
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  Job Vacancy
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {job.job_vacancy}
-                </dd>
-              </div>
-
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  Job apply Deadline
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                  {job.job_deadline}
-                </dd>
-              </div>
-            </dl>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500">
+                    Job apply Deadline
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                    {job.job_deadline}
+                  </dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </div>
-      </div> */}
+      ) : (
+        <p>No jobs found.</p>
+      )}
       <div className="text-center pb-10">
         <button
           onClick={applyJob}

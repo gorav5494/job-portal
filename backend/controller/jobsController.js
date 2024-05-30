@@ -1,5 +1,6 @@
 const Job = require("../Models/jobs");
 const asynchandler = require("express-async-handler");
+const ApiFeatures = require("../utils/apifeature");
 
 const job = asynchandler(async (req, res) => {
   const {
@@ -45,9 +46,10 @@ const job = asynchandler(async (req, res) => {
 // Get job Details
 
 const Getjob = asynchandler(async (req, res) => {
-  const job = await Job.findById(req.params._id);
-  const jobdata = res.json();
-  console.log("dss", jobdata);
+  const job = await Job.findById(req.params.id);
+
+  // const jobdata = res.json();
+  // console.log("dss", jobdata);
 
   if (job) {
     res.status(200).json({
@@ -63,26 +65,29 @@ const Getjob = asynchandler(async (req, res) => {
 
 //get all listing page
 
-const GetAllJobs = asynchandler(async (req, res) => {
-  try {
-    const jobs = await Job.find();
-    if (jobs.length > 0) {
-      res.status(200).json({ message: "Jobs found", data: jobs });
-    } else {
-      res.status(404).json({ message: "No jobs found" });
-    }
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+// const GetAllJobs = asynchandler(async (req, res, next) => {
+//   try {
+//     // const jobs = await Job.find();
+//     const apiFeatures = new ApiFeatures(Product.find(), req.query).search();
 
-/* router.get('/', async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-}); */
+//     let jobs = await apiFeatures.query;
+
+//     if (jobs.length > 0) {
+//       res.status(200).json({ message: "Jobs found", data: jobs });
+//     } else {
+//       res.status(404).json({ message: "No jobs found" });
+//     }
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+const GetAllJobs = asynchandler(async (req, res, next) => {
+  const jobs = await Job.find();
+
+  res.status(200).json({
+    success: true,
+    jobs,
+  });
+});
 
 module.exports = { job, Getjob, GetAllJobs };
