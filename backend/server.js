@@ -15,6 +15,9 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/applyjobs", applyjobRoutes);
+//static folder for file upload
+app.use("/uploads", express.static("uploads"));
+
 app.use("/api/jobs", jobsRoutes);
 
 // app.use('/api/', userRoutes);
