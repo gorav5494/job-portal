@@ -8,9 +8,8 @@ function Applyjob() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    resume: null,
-    // status: "pending",
   });
+  const [file, setFile] = useState("");
 
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
@@ -23,16 +22,24 @@ function Applyjob() {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, resume: e.target.files[0] });
+    setFile({ ...formData, resume: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+
+    formData.append("file", formData);
+    console.log("file : ", file);
+
     try {
       const res = await axios.post("/api/applyjobs/fillform", formData);
 
       console.log(res.data);
+      formData.append("file", file);
+
+      console.log("file : ", file);
 
       if (res.data) {
         setSuccess(true);
@@ -55,7 +62,7 @@ function Applyjob() {
       }, 3000);
     }
 
-    //validation
+    // validation
 
     const errors = {};
 
