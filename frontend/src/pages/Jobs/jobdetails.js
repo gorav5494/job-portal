@@ -6,18 +6,19 @@ import axios from "axios";
 function Jobdetails() {
   const { id } = useParams();
   const [job, setJob] = useState(null);
-
   const navigate = useNavigate();
+
   const applyJob = () => {
-    navigate("/applyjob");
+    navigate("/applyjob", { state: { jobId: id } });
+    console.log("jdf", "");
   };
 
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
         const res = await axios.get(`/api/jobs/${id}`);
-        // console.log("sfdh", res.data.data);
         setJob(res.data.data);
+        console.log("jdf", res.data._id);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
@@ -120,7 +121,7 @@ function Jobdetails() {
           onClick={applyJob}
           className="relative h-12 w-40 overflow-hidden border border-indigo-600 text-indigo-600 shadow-2xl transition-all duration-200 before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:m-auto before:h-0 before:w-0 before:rounded-sm before:bg-indigo-600 before:duration-300 before:ease-out hover:text-white hover:shadow-indigo-600 hover:before:h-40 hover:before:w-40 hover:before:opacity-80"
         >
-          <span class="relative z-10">Apply Job</span>
+          <span className="relative z-10">Apply Job</span>
         </button>
       </div>
       {/*  */}

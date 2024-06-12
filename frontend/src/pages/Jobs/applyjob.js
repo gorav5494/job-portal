@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Applyjob() {
+function Applyjob({ userId, jobId }) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    user: userId || "",
+    job: jobId || "",
     name: "",
     email: "",
+    about: "",
   });
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
 
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
@@ -17,29 +20,45 @@ function Applyjob() {
   const [successmsg, setSuccessmsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      user: userId || "",
+      job: jobId || "",
+    }));
+  }, [userId, jobId]);
 
+  const handleChange = (e) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.name]: e.target.value,
+    }));
+  };
   const handleFileChange = (e) => {
-    setFile({ ...formData, resume: e.target.files[0] });
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
+    const formDataToSend = new FormData();
 
-    formData.append("file", formData);
-    console.log("file : ", file);
+    // Append form fields to FormData
+    formDataToSend.append("user", formData.user);
+    formDataToSend.append("job", formData.job);
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("about", formData.about);
+
+    // Append file to FormData
+    if (file) {
+      formDataToSend.append("file", file);
+    }
 
     try {
-      const res = await axios.post("/api/applyjobs/fillform", formData);
-
+      const res = await axios.post("/api/applyjobs/apply", formDataToSend);
+      console.log("khb", formDataToSend);
       console.log(res.data);
-      formData.append("file", file);
-
-      console.log("file : ", file);
 
       if (res.data) {
         setSuccess(true);
@@ -63,7 +82,6 @@ function Applyjob() {
     }
 
     // validation
-
     const errors = {};
 
     if (!formData.name) {
@@ -77,16 +95,16 @@ function Applyjob() {
     if (!formData.about) {
       errors.about = "about is required";
     }
-    if (!formData.resume) {
+    if (!file) {
       errors.resume = "Resume is required";
     }
 
     if (Object.keys(errors).length === 0) {
+      // No errors, proceed with form submission
     } else {
       setErrors(errors);
     }
   };
-
   return (
     <>
       <section className="py-10 bg-gradient-to-r from-cyan-500 to-blue-500 h-screen">
