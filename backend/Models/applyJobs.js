@@ -24,25 +24,9 @@ const ApplyJobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    fileName: {
+    file: {
       type: String,
-      required: true,
-    },
-    filePath: {
-      type: String,
-      required: true,
-    },
-    fileType: {
-      type: String,
-      required: true,
-    },
-    fileSize: {
-      type: Number,
-      required: true,
-    },
-    uploadedAt: {
-      type: Date,
-      default: Date.now,
+      required: [true, "Please provide a file"],
     },
   },
   { timestamps: true }
