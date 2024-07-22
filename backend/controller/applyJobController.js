@@ -1,27 +1,59 @@
 const AppliedJob = require("../Models/applyJobs");
 const asynchandler = require("express-async-handler");
+// const path = require("path");
 
 const applicationfill = asynchandler(async (req, res) => {
-  const { user, job, name, email, about, resume } = req.body;
+  const { user, job, name, email, about } = req.body;
+  const cv = req.file ? req.file.filename : "";
 
-  const applicationfill = await AppliedJob.create({
+  const applydata = await AppliedJob.create({
     user,
     job,
     name,
     email,
     about,
-    resume,
+    cv,
   });
-  console.log("dkf", req.body);
-  if (applicationfill) {
-    res.status(201).json({
-      message: "Application Submit SucessFully",
-      data: applicationfill,
+
+  applydata
+    .save()
+    .then((result) => {
+      res.status(201).json({
+        message: "File uploaded successfully",
+        data: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Error saving document",
+        error: err,
+      });
+    });
+});
+
+//get the users
+
+const getapplyUsers = asynchandler(async (req, res) => {
+  const applyjob = await AppliedJob.findById(req.params.id);
+  if (applyjob) {
+    res.status(200).json({
+      message: "applyjob Found...",
+      data: applyjob,
     });
   } else {
-    res.status(400);
-    throw new Error("Submit  Occured.. !");
+    res.status(400).json({
+      message: "applyjob Is not Found",
+    });
   }
 });
 
-module.exports = applicationfill;
+const getAllapplyUsers = asynchandler(async (req, res) => {
+  const applyjob = await AppliedJob.find();
+
+  res.status(200).json({
+    success: true,
+    applyjob,
+  });
+});
+
+module.exports = { applicationfill, getapplyUsers, getAllapplyUsers };

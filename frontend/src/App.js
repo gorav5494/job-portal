@@ -10,11 +10,16 @@ import Jobdetails from "./pages/Jobs/jobdetails";
 import Applyjob from "./pages/Jobs/applyjob";
 import Footer from "./component/Footer";
 import Viewjoblisting from "./pages/Jobs/viewjoblisting";
+import JobPortalPopup from "./pages/shared/popup";
+import ForgetPassoword from "./pages/shared/forgotPassword";
+import ResetPassword from "./pages/shared/resetpassword";
+import UserList from "./pages/Jobs/appliedUser";
 
 const App = () => {
   return (
     <div>
       <Router>
+        <JobPortalPopup />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -22,11 +27,14 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/addjob" element={<JobPostingForm />} />
-          <Route path="/jobdetails" element={<Jobdetails />} />
+          <Route path="/jobdetails/:id" element={<Jobdetails />} />
           <Route path="/applyjob" element={<Applyjob />} />
-          <Route path="//viewjobs" element={<Viewjoblisting/>} />
+          <Route path="/viewjobs" element={<Viewjoblisting />} />
+          <Route path="/forgotpassword" element={<ForgetPassoword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/applylist" element={<UserList />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </Router>
     </div>
   );

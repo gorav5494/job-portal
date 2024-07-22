@@ -2,11 +2,13 @@ const mongoose = require("mongoose");
 
 const JobSchema = new mongoose.Schema(
   {
+    // _id: { type: mongoose.Schema.Types.ObjectId, auto: true
+    // },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    title: {
+    job_title: {
       type: String,
       required: true,
     },
@@ -30,6 +32,16 @@ const JobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    // job_type: {
+    //   type: String,
+    //   enum: [
+    //     "IT and Development job",
+    //     "Accounting Job",
+    //     "Administrative Job",
+    //     "Customer service Job",
+    //     "Human Resources(HR)",
+    //   ],
+    // },
     job_type: {
       type: String,
       required: true,

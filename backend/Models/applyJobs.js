@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 const ApplyJobSchema = new mongoose.Schema(
   {
     user: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     job: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Job",
+      required: true,
     },
     name: {
       type: String,
@@ -22,25 +24,10 @@ const ApplyJobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    resume: {
+    cv: {
       type: String,
-      ref: "File",
+      required: [true, "Please provide a file"],
     },
-    // resume: {
-    //   public_id: {
-    //     type: String,
-    //     required: true,
-    //   },
-    //   url: {
-    //     type: String,
-    //     required: true,
-    //   },
-    // },
-    // status: {
-    //   type: String,
-    //   default: "pending",
-    //   enum: ["pending", "accepted", "rejected"],
-    // },
   },
   { timestamps: true }
 );
