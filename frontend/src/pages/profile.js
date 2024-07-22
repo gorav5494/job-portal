@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import * as Icon from "react-icons/cg";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import profile from '../../public/profile.png'
 
 const Profile = () => {

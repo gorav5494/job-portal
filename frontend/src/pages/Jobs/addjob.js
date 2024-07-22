@@ -64,8 +64,8 @@ const JobPostingForm = () => {
   const validateForm = (data) => {
     const errors = {};
 
-    if (!data.title) {
-      errors.title = "Title is required";
+    if (!data.job_title) {
+      errors.job_title = "Title is required";
     }
 
     if (!data.description) {
@@ -121,21 +121,21 @@ const JobPostingForm = () => {
       >
         <div className="mb-6">
           <label
-            htmlFor="title"
+            htmlFor="job_title"
             className="block text-lg font-medium text-gray-700 mb-2"
           >
             Job Profile
           </label>
           <input
             type="text"
-            id="title"
-            name="title"
-            value={formData.title}
+            id="job_title"
+            name="job_title"
+            value={formData.job_title}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title}</p>
+          {errors.job_title && (
+            <p className="text-red-500 text-sm">{errors.job_title}</p>
           )}
         </div>
 

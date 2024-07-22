@@ -24,7 +24,7 @@ const ApplyJobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    file: {
+    cv: {
       type: String,
       required: [true, "Please provide a file"],
     },

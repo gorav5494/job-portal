@@ -1,10 +1,10 @@
 const AppliedJob = require("../Models/applyJobs");
 const asynchandler = require("express-async-handler");
-const path = require("path");
+// const path = require("path");
 
 const applicationfill = asynchandler(async (req, res) => {
   const { user, job, name, email, about } = req.body;
-  const file = req.file.path;
+  const cv = req.file ? req.file.filename : "";
 
   const applydata = await AppliedJob.create({
     user,
@@ -12,7 +12,7 @@ const applicationfill = asynchandler(async (req, res) => {
     name,
     email,
     about,
-    file,
+    cv,
   });
 
   applydata
@@ -31,4 +31,29 @@ const applicationfill = asynchandler(async (req, res) => {
     });
 });
 
-module.exports = applicationfill;
+//get the users
+
+const getapplyUsers = asynchandler(async (req, res) => {
+  const applyjob = await AppliedJob.findById(req.params.id);
+  if (applyjob) {
+    res.status(200).json({
+      message: "applyjob Found...",
+      data: applyjob,
+    });
+  } else {
+    res.status(400).json({
+      message: "applyjob Is not Found",
+    });
+  }
+});
+
+const getAllapplyUsers = asynchandler(async (req, res) => {
+  const applyjob = await AppliedJob.find();
+
+  res.status(200).json({
+    success: true,
+    applyjob,
+  });
+});
+
+module.exports = { applicationfill, getapplyUsers, getAllapplyUsers };

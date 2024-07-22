@@ -13,6 +13,7 @@ import Viewjoblisting from "./pages/Jobs/viewjoblisting";
 import JobPortalPopup from "./pages/shared/popup";
 import ForgetPassoword from "./pages/shared/forgotPassword";
 import ResetPassword from "./pages/shared/resetpassword";
+import UserList from "./pages/Jobs/appliedUser";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/viewjobs" element={<Viewjoblisting />} />
           <Route path="/forgotpassword" element={<ForgetPassoword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/applylist" element={<UserList />} />
         </Routes>
         <Footer />
       </Router>

@@ -38,7 +38,7 @@ function Viewjoblisting() {
                 className="bg-white p-6 rounded-lg border shadow-lg hover:shadow-2xl"
               >
                 <h2 className="text-xl font-semibold mb-2 capitalize ">
-                  <span className="font-bold ">Profile :</span> {job.title}
+                  <span className="font-bold ">Profile :</span> {job.job_title}
                 </h2>
                 <p className="text-gray-700 mb-4">
                   <span className="font-bold">Description :</span>{" "}

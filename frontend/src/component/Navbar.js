@@ -44,6 +44,13 @@ function Navbar() {
                 View Jobs
               </Link>
             </li>
+            {user && usertype === "recruitment" && (
+              <li>
+                <Link to={"/applylist"} className="text-white uppercase">
+                  AppliedJob list
+                </Link>
+              </li>
+            )}
             <li>
               <Link to={"/about"} className="text-white uppercase">
                 About
