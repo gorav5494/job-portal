@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -41,7 +41,8 @@ const Login = () => {
           if (usertype === "recruitment") {
             navigate("/addjob");
           } else if (usertype === "applyJob") {
-            navigate("/");
+            navigate("/", { state: { userId: id } });
+            console.log("userId: ", id);
           } else {
             navigate("/");
           }
@@ -69,7 +70,7 @@ const Login = () => {
       errors.email = "Email is required";
     }
     if (!formData.password.trim()) {
-      errors.password = "Password is required";
+      errors.password = "Password is required.";
     }
 
     if (Object.keys(errors).length === 0) {

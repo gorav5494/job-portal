@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-function Applyjob({ userId, jobId }) {
+function Applyjob() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { jobId, userId } = location.state || {};
 
   const [formData, setFormData] = useState({
     user: userId || "",
@@ -11,8 +13,9 @@ function Applyjob({ userId, jobId }) {
     name: "",
     email: "",
     about: "",
+    cv: null,
   });
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
 
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
@@ -28,6 +31,8 @@ function Applyjob({ userId, jobId }) {
     }));
   }, [userId, jobId]);
 
+  console.log("fe", userId, jobId);
+
   const handleChange = (e) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -35,7 +40,7 @@ function Applyjob({ userId, jobId }) {
     }));
   };
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    setFormData({ ...formData, cv: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
@@ -49,15 +54,16 @@ function Applyjob({ userId, jobId }) {
     formDataToSend.append("name", formData.name);
     formDataToSend.append("email", formData.email);
     formDataToSend.append("about", formData.about);
+    formDataToSend.append("cv", formData.cv);
 
-    // Append file to FormData
-    if (file) {
-      formDataToSend.append("file", file);
+    for (let pair of formDataToSend.entries()) {
+      console.log(pair);
     }
 
+    // Append file to FormData
     try {
       const res = await axios.post("/api/applyjobs/apply", formDataToSend);
-      console.log("khb", formDataToSend);
+      // console.log("khb", formDataToSend);
       console.log(res.data);
 
       if (res.data) {
@@ -95,8 +101,8 @@ function Applyjob({ userId, jobId }) {
     if (!formData.about) {
       errors.about = "about is required";
     }
-    if (!file) {
-      errors.resume = "Resume is required";
+    if (!formData.cv) {
+      errors.cv = "CV is required";
     }
 
     if (Object.keys(errors).length === 0) {
@@ -198,21 +204,19 @@ function Applyjob({ userId, jobId }) {
                 )}
               </div>
               <div className="mb-4">
-                <label htmlFor="resume" className="block font-bold mb-2">
+                <label htmlFor="cv" className="block font-bold mb-2">
                   Upload CV
                 </label>
                 <input
                   type="file"
-                  id="resume"
-                  name="resume"
+                  id="cv"
+                  name="cv"
                   onChange={handleFileChange}
                   className={`w-full px-3 py-2 border rounded-md ${
-                    errors.resume ? "border-red-500" : "border-gray-300"
+                    errors.cv ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.resume && (
-                  <p className="text-red-500 mt-1">{errors.resume}</p>
-                )}
+                {errors.cv && <p className="text-red-500 mt-1">{errors.cv}</p>}
               </div>
 
               <button

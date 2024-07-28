@@ -5,7 +5,7 @@ const ApiFeatures = require("../utils/apifeature");
 const job = asynchandler(async (req, res) => {
   const {
     user,
-    title,
+    job_title,
     description,
     salary,
     company,
@@ -20,7 +20,7 @@ const job = asynchandler(async (req, res) => {
   // console.log("this job", req.body);
   const newjob = await Job.create({
     user,
-    title,
+    job_title,
     description,
     salary,
     company,

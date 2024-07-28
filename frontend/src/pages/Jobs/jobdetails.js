@@ -10,7 +10,7 @@ function Jobdetails() {
 
   const applyJob = () => {
     navigate("/applyjob", { state: { jobId: id } });
-    console.log("jdf", "");
+    console.log("jdf", id);
   };
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function Jobdetails() {
                     Job profile
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {job.title}
+                    {job.job_title}
                   </dd>
                 </div>
 
