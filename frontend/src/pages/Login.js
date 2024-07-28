@@ -70,7 +70,7 @@ const Login = () => {
       errors.email = "Email is required";
     }
     if (!formData.password.trim()) {
-      errors.password = "Password is required";
+      errors.password = "Password is required.";
     }
 
     if (Object.keys(errors).length === 0) {
