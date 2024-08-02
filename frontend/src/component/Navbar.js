@@ -20,7 +20,7 @@ function Navbar() {
   useEffect(() => {
     setuser(localStorage.getItem("userdata"));
     setUsertype(localStorage.getItem("usertype"));
-    console.log("hds", setUsertype);
+    // console.log("hds", setuser);
   });
 
   return (
