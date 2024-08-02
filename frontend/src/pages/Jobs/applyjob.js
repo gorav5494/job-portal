@@ -6,16 +6,14 @@ function Applyjob() {
   const navigate = useNavigate();
   const location = useLocation();
   const { jobId, userId } = location.state || {};
-
+  const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({
     user: userId || "",
     job: jobId || "",
     name: "",
     email: "",
     about: "",
-    cv: null,
   });
-  // const [file, setFile] = useState(null);
 
   const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
@@ -24,14 +22,15 @@ function Applyjob() {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
+    const usr = JSON.parse(localStorage.getItem("userdata"));
+    const userId = usr ? usr._id : "";
+
     setFormData((prevFormData) => ({
       ...prevFormData,
-      user: userId || "",
-      job: jobId || "",
+      user: userId,
+      job: jobId,
     }));
-  }, [userId, jobId]);
-
-  console.log("fe", userId, jobId);
+  }, [jobId]);
 
   const handleChange = (e) => {
     setFormData((prevFormData) => ({
@@ -39,32 +38,50 @@ function Applyjob() {
       [e.target.name]: e.target.value,
     }));
   };
+
   const handleFileChange = (e) => {
-    setFormData({ ...formData, cv: e.target.files[0] });
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataToSend = new FormData();
+    // Validation
+    const errors = {};
+    if (!formData.name) {
+      errors.name = "Name is required";
+    }
+    if (!formData.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Email is invalid";
+    }
+    if (!formData.about) {
+      errors.about = "About is required";
+    }
+    if (!file) {
+      errors.cv = "CV is required";
+    }
 
-    // Append form fields to FormData
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
+    const formDataToSend = new FormData();
     formDataToSend.append("user", formData.user);
     formDataToSend.append("job", formData.job);
     formDataToSend.append("name", formData.name);
     formDataToSend.append("email", formData.email);
     formDataToSend.append("about", formData.about);
-    formDataToSend.append("cv", formData.cv);
 
-    for (let pair of formDataToSend.entries()) {
-      console.log(pair);
+    if (file) {
+      formDataToSend.append("cv", file);
     }
 
-    // Append file to FormData
     try {
       const res = await axios.post("/api/applyjobs/apply", formDataToSend);
-      // console.log("khb", formDataToSend);
-      console.log(res.data);
+      console.log("Apply data", res.data.data);
 
       if (res.data) {
         setSuccess(true);
@@ -86,31 +103,8 @@ function Applyjob() {
         setErrormsg({});
       }, 3000);
     }
-
-    // validation
-    const errors = {};
-
-    if (!formData.name) {
-      errors.name = "name is required";
-    }
-    if (!formData.email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Email is invalid";
-    }
-    if (!formData.about) {
-      errors.about = "about is required";
-    }
-    if (!formData.cv) {
-      errors.cv = "CV is required";
-    }
-
-    if (Object.keys(errors).length === 0) {
-      // No errors, proceed with form submission
-    } else {
-      setErrors(errors);
-    }
   };
+
   return (
     <>
       <section className="py-10 bg-gradient-to-r from-cyan-500 to-blue-500 h-screen">

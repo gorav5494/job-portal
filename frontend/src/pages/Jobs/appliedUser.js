@@ -42,7 +42,7 @@ const UserList = () => {
                   rel="noopener noreferrer"
                   className="text-blue-500 hover:underline"
                 >
-                  Download CV
+                  Open CV
                 </a>
               </div>
             ))
