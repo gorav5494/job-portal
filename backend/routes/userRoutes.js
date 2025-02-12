@@ -5,6 +5,7 @@ const {
   GetUser,
   ForgetPassword,
   ResetPassword,
+  // logoutUser,
   // GetAllUser,
 } = require("../controller/userController");
 
@@ -18,5 +19,6 @@ router.route("/:id").get(GetUser);
 // router.post("/reset-password/:token", resetPassword);
 router.route("/forgetPassword").post(ForgetPassword);
 router.route("/resetpassword/:token").post(ResetPassword);
+// router.route("/api/users/logout").post(logoutUser);
 
 module.exports = router;

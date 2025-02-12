@@ -1,20 +1,43 @@
 import React, { useEffect, useState } from "react";
 // import * as Icon from "react-icons/cg";
-import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+// import axios from "axios";
+import { Link } from "react-router-dom";
 // import profile from '../../public/profile.png'
 
 const Profile = () => {
   const [user, setUser] = useState({});
 
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     const usr = JSON.parse(localStorage.getItem("userdata"));
+  //     const res = await axios.get(`/api/users/${usr._id}`);
+  //     console.log("userr", res.data.data);
+  //     console.log("user-id", res._id);
+  //     setUser(res.data.data);
+  //     console.log(setUser);
+  //   };
+
+  //   fetchUserData();
+  // }, []);
   useEffect(() => {
     const fetchUserData = async () => {
-      const usr = JSON.parse(localStorage.getItem("userdata"));
-      const res = await axios.get(`/api/users/${usr._id}`);
-      console.log("userr", res.data.data);
-
-      setUser(res.data.data);
-      console.log(setUser);
+      try {
+        const usr = JSON.parse(localStorage.getItem("userdata"));
+        console.log("data", usr);
+        setUser(usr);
+        // if (usr && usr._id) {
+        //   const res = await axios.get(`/api/users/${usr._id}`);
+        //   console.log("User data fetched", res.data.data);
+        //   setUser(res.data.data);
+        //   console.log("User Id ", usr._id);
+        // } else {
+        //   console.error("User ID not found in local storage.");
+        // }
+      } catch (error) {
+        console.error("Error fetching user data", error);
+      }
     };
 
     fetchUserData();
