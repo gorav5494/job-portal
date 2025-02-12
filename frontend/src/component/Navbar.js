@@ -20,7 +20,6 @@ function Navbar() {
   useEffect(() => {
     setuser(localStorage.getItem("userdata"));
     setUsertype(localStorage.getItem("usertype"));
-    // console.log("hds", setuser);
   });
 
   return (
@@ -38,24 +37,42 @@ function Navbar() {
                 Home
               </Link>
             </li>
-
-            <li>
-              <Link to={"/viewjobs"} className="text-white uppercase">
-                View Jobs
-              </Link>
-            </li>
-            {user && usertype === "recruitment" && (
-              <li>
-                <Link to={"/applylist"} className="text-white uppercase">
-                  AppliedJob list
-                </Link>
-              </li>
-            )}
             <li>
               <Link to={"/about"} className="text-white uppercase">
                 About
               </Link>
             </li>
+
+            <li>
+              <Link to={"/viewjobs"} className="text-white uppercase">
+                Jobs
+              </Link>
+            </li>
+            {user && usertype === "recruitment" && (
+              <li>
+                <Link to={"/applylist"} className="text-white uppercase">
+                  Candidates
+                </Link>
+                {/* <ul className="hidden">
+                  
+                </ul> */}
+              </li>
+            )}
+            {user && usertype === "recruitment" && (
+              <li>
+                <Link to={"/addjob"} className="text-white">
+                  AddJob
+                </Link>
+              </li>
+            )}
+            {user && usertype === "recruitment" && (
+              <li>
+                <Link to={"/editjobs"} className="text-white">
+                  EDIT JOBS
+                </Link>
+              </li>
+            )}
+
             {!user && (
               <li>
                 <Link to={"/register"} className="text-white uppercase">
@@ -71,18 +88,13 @@ function Navbar() {
                     src={process.env.PUBLIC_URL + "/profile.png"}
                     height={20}
                     width={20}
+                    alt="profile"
                     className="rounded-2xl  inline-block align-middle"
                   />
                 </Link>
               </li>
             )}
-            {user && usertype === "recruitment" && (
-              <li>
-                <Link to={"/addjob"} className="text-white">
-                  AddJob
-                </Link>
-              </li>
-            )}
+
             {user && (
               <li>
                 <div className="dropdown">
