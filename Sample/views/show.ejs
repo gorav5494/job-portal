@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>show data</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <div class="container mx-auto mt-10">
+      <a
+        href="/"
+        class="hover:border-b border-b-gray text-blue text-xl text-start hover:text-blue"
+        >Go to Home</a
+      >
+      <h1 class="text-center text-4xl font-medium mt-10"><%= filename%></h1>
+      <p class="text-black text-center mt-10"><%= filesdata %></p>
+    </div>
+  </body>
+</html>
