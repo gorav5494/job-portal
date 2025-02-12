@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>show data</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <div class="container mx-auto mt-10">
+      <a
+        href="/"
+        class="hover:border-b border-b-gray text-blue text-xl text-start hover:text-blue"
+        >Go to Home</a
+      >
+      <div class="ml-10 mt-10">
+        <h2 class="text-black my-4 text-2xl">Update File Name -----</h2>
+
+        <form action="/edit" method="post">
+          <div>
+            <input
+              class="w-full lg:w-1/2 bg-gray-300 text-gray-500 border border-white outline-none rounded-lg bg-gray-200 p-4 my-4"
+              type="text"
+              placeholder="previouse Title"
+              name="previous"
+              value="<%=filename %>"
+              disabled="true"
+            />
+          </div>
+
+          <div>
+            <input
+              class="w-full lg:w-1/2 border border-white outline-none rounded-lg bg-gray-200 p-4 my-4"
+              type="text"
+              placeholder="New Title"
+              name="new"
+            />
+            <!-- <textarea
+              name="details"
+              class="w-full border border-white outline-none rounded-lg bg-gray-200 p-4 my-4"
+              placeholder="Write Your Task Details"
+            ></textarea> -->
+          </div>
+
+          <div>
+            <input
+              class="border border-white bg-gray-200 p-4 my-4 cursor-pointer rounded-xl bg-yellow-600 hover:bg-blue-500 text-white"
+              type="submit"
+              value="Update FileName"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+RESTful APIs follow the HTTP protocol, emphasizing resource representation and stateless interactions. By using standard HTTP methods (GET, POST, PUT, DELETE) and precise status codes, RESTful architectures provide a simple, efficient, and easy-to-maintain way to build network applications. This approach enhances scalability, flexibility, and maintainability for web services.

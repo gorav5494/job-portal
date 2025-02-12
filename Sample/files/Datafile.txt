@@ -1,0 +1,1 @@
+Access deeply nested properties without checking each level. Example if you have a json object with nested properly use optional chaining to grab values and avoid missing property error.

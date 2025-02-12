@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+    <title>Document</title>
+  </head>
+  <body>
+      <div class="main w-full min-h-screen bg-zinc-700 py-20 ">
+        <div class="form border border-white rounded-xl max-w-4xl mx-auto p-5 container mx-auto">
+          <h1 class="text-white my-4 text-center text-2xl">This Is A Form For Task Submitted</h1>
+          <form action="/create" method="post">
+            
+            <div><input class="w-full border border-white outline-none rounded-lg bg-gray-200 p-4 my-4" type="text" placeholder="Title" name="title"></div>
+            
+            <div><textarea name="details" class="w-full border border-white outline-none rounded-lg bg-gray-200 p-4 my-4" placeholder="Write Your Task Details"></textarea></div>
+            
+            <div><input class=" border border-white bg-gray-200 p-4 my-4 cursor-pointer rounded-xl hover:bg-blue-500 hover:text-white" type="submit" value="Create Task"></div>
+          </form>
+        </div>
+        <div class="cards mt-20 border-t-white border-t pt-10 container mx-auto">
+          <h2 class="text-center text-white font-bold my-5 text-4xl">Showing Info...</h2>
+          <div class="flex justify-center items-center gap-x-4 gap-y-4 flex-wrap">
+            <% if(files.length > 0) { %>
+            <% files.forEach(function (val) { %>
+              <div class="task w-72  p-4 bg-gray-200 border border-white rounded-lg">
+                <h2 class=""><%= val %></h2>
+                <div></div>
+                <a class="mt-4 inline-block bg-blue-500 border border-gray text-white px-4 py-2 cursor-pointer hover:bg-gray-200 hover:text-black" href="/file/<%= val %>">Read More</a>
+                <a class="mt-4 inline-block bg-blue-500 border border-gray text-white px-4 py-2 cursor-pointer hover:bg-gray-200 hover:text-black" href="/edit/<%= val %>">Edit FileName</a>
+              </div>             
+              <% }) %>
+              <% } else {%>
+                <div>
+                  <h3 class="text-2xl text-gray-400">No Task Yet</h3>
+                </div>
+                <% }%>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
