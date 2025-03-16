@@ -174,6 +174,9 @@ const GetAllUser = asynchandler(async (req, res, next) => {
     users,
   });
 });
+// New logout function
+
+/*  */
 
 module.exports = {
   registerUser,

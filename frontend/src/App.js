@@ -14,6 +14,8 @@ import JobPortalPopup from "./pages/shared/popup";
 import ForgetPassoword from "./pages/shared/forgotPassword";
 import ResetPassword from "./pages/shared/resetpassword";
 import UserList from "./pages/Jobs/appliedUser";
+import Search from "./pages/Search";
+import UpdateDeleteJob from "./pages/Jobs/UpdateDeleteJob";
 
 const App = () => {
   return (
@@ -33,6 +35,8 @@ const App = () => {
           <Route path="/forgotpassword" element={<ForgetPassoword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/applylist" element={<UserList />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/editjobs" element={<UpdateDeleteJob />} />
         </Routes>
         <Footer />
       </Router>

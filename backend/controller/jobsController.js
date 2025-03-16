@@ -63,24 +63,8 @@ const Getjob = asynchandler(async (req, res) => {
   }
 });
 
-//get all listing page
+/* Get All jobs */
 
-// const GetAllJobs = asynchandler(async (req, res, next) => {
-//   try {
-//     // const jobs = await Job.find();
-//     const apiFeatures = new ApiFeatures(Product.find(), req.query).search();
-
-//     let jobs = await apiFeatures.query;
-
-//     if (jobs.length > 0) {
-//       res.status(200).json({ message: "Jobs found", data: jobs });
-//     } else {
-//       res.status(404).json({ message: "No jobs found" });
-//     }
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
 const GetAllJobs = asynchandler(async (req, res, next) => {
   const jobs = await Job.find();
 
@@ -90,4 +74,28 @@ const GetAllJobs = asynchandler(async (req, res, next) => {
   });
 });
 
-module.exports = { job, Getjob, GetAllJobs };
+/* Update Jobs */
+
+const updatejob = asynchandler(async (req, res, next) => {
+  try {
+    const job = await Job.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.json(job);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+/* Delete Jobs */
+
+const DeleteJob = asynchandler(async (req, res, next) => {
+  try {
+    await Job.findByIdAndDelete(req.params.id);
+    res.json({ message: "Job deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+module.exports = { job, Getjob, GetAllJobs, updatejob, DeleteJob };
