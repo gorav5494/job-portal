@@ -59,8 +59,7 @@ const Search = () => {
       const title = job.title ? job.title.toLowerCase() : "";
       const companyName = job.company ? job.company.toLowerCase() : "";
       const jobType = job.job_type || "";
-
-      const matchesSearch = title.includes(filters.search.toLowerCase());
+      const matchesTitle = title.includes(filters.search.toLowerCase());
       const matchesCompany = companyName.includes(
         filters.company.toLowerCase()
       );
@@ -68,11 +67,11 @@ const Search = () => {
         ? jobType === filters.job_type
         : true;
 
-      return matchesSearch && matchesCompany && matchesType;
+      return matchesTitle && matchesCompany && matchesType;
     });
 
     // Debugging point: Log filtered data to ensure correct filtering
-    console.log("Filtered Data:", filtered);
+    console.log("Filtered Data:", company, type, search, filtered, jobs);
 
     setFilteredJobs(filtered);
   };
