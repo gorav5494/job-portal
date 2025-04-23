@@ -14,7 +14,6 @@ const registerUser = asynchandler(async (req, res) => {
     res.status(400);
     throw new Error("User Already Exits");
   }
-
   const user = await User.create({
     name,
     email,
